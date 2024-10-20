@@ -1,4 +1,4 @@
-package com.example.rickandmorty
+package com.example.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -7,41 +7,35 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.rickandmorty.ui.theme.RickAndMortyTheme
+import androidx.navigation.compose.rememberNavController
+import com.example.presentation.theme.RickAndMortyTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
             RickAndMortyTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                MyApp(modifier = Modifier.fillMaxSize())
             }
         }
     }
 }
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
+fun MyApp(modifier: Modifier = Modifier) {
     RickAndMortyTheme {
-        Greeting("Android")
+        val navController = rememberNavController()
+        Scaffold { innerPadding ->
+            AppNavHost(
+                navHostController = navController,
+                modifier = Modifier.padding(innerPadding)
+            )
+        }
     }
+
 }

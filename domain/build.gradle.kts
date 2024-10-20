@@ -1,9 +1,14 @@
 plugins {
-    id("java-library")
     alias(libs.plugins.jetbrains.kotlin.jvm)
+    id("com.google.devtools.ksp")
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+dependencies {
+
+    api(libs.moshi)
+    api(libs.converter.moshi)
+    api(libs.moshi.kotlin)
+    ksp(libs.moshi.kotlin.codegen)
+
+    implementation(libs.javax.inject)
 }
