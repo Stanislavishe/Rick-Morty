@@ -17,20 +17,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.paging.ItemSnapshotList
 import androidx.paging.compose.LazyPagingItems
 import com.example.domain.models.Character
 
 @Composable
 fun CharacterList(
     modifier: Modifier = Modifier,
-    characters: LazyPagingItems<Character>,
+    characters: List<Character>,
     onNavigate: () -> Unit
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(items = characters.itemSnapshotList) {
-            if (it != null) ItemList(info = it, modifier = Modifier
+        items(items = characters, key = {it.id}) {
+            ItemList(info = it, modifier = Modifier
                 .padding(8.dp)
                 .fillMaxWidth())
         }

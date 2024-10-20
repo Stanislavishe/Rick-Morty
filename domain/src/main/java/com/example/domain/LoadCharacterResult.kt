@@ -1,6 +1,7 @@
 package com.example.domain
 
 import com.example.domain.models.Character
+import com.example.domain.models.Episode
 
 interface LoadCharacterResult {
 
@@ -9,7 +10,7 @@ interface LoadCharacterResult {
     interface Mapper<T: Any> {
         fun mapSingleSuccess(character: Character) : T
 
-        fun mapListSuccess(list: List<Character>) : T
+        fun mapSingleEpisode(episodes: List<Episode>): T
 
         fun mapError(error: String) : T
     }
@@ -20,9 +21,9 @@ interface LoadCharacterResult {
         }
     }
 
-    data class SuccessCharacterList(private val list: List<Character>) : LoadCharacterResult {
+    data class SuccessSingleEpisode(private val episodes: List<Episode>) : LoadCharacterResult {
         override fun <T : Any> map(mapper: Mapper<T>): T {
-            return mapper.mapListSuccess(list)
+            return mapper.mapSingleEpisode(episodes)
         }
     }
 

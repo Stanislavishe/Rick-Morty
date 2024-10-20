@@ -21,14 +21,15 @@ fun AppNavHost(
     navHostController: NavHostController,
     viewModel: CharacterListViewModel = viewModel()
 ) {
-    val characters = viewModel.charactersList.collectAsLazyPagingItems()
     NavHost(
         navController = navHostController,
         startDestination = HomeScreen,
         modifier = modifier
     ) {
         composable<HomeScreen> {
-            CharacterList(characters = characters, modifier = modifier){
+            CharacterList(
+                characters = viewModel.charactersList.collectAsLazyPagingItems().itemSnapshotList.items,
+                modifier = modifier){
                 navHostController.navigate(route = PersonScreen)
             }
         }
