@@ -1,6 +1,7 @@
-package com.example.presentation
+package com.example.presentation.fragments
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,23 +18,26 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.paging.ItemSnapshotList
-import androidx.paging.compose.LazyPagingItems
 import com.example.domain.models.Character
+import com.example.presentation.GlideImagePreview
+import com.example.presentation.R
 
 @Composable
 fun CharacterList(
     modifier: Modifier = Modifier,
     characters: List<Character>,
-    onNavigate: () -> Unit
+    onNavigate: (Int) -> Unit
 ) {
     LazyColumn(
         modifier = modifier
     ) {
-        items(items = characters, key = {it.id}) {
-            ItemList(info = it, modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth())
+        items(items = characters, key = { it.id }) {
+            ItemList(
+                info = it, modifier = Modifier
+                    .padding(8.dp)
+                    .fillMaxWidth(),
+                onNavigate = onNavigate
+            )
         }
     }
 }
@@ -41,12 +45,14 @@ fun CharacterList(
 @Composable
 fun ItemList(
     modifier: Modifier = Modifier,
-    info: Character
+    info: Character,
+    onNavigate: (Int) -> Unit
 ) {
     Surface(
         color = MaterialTheme.colorScheme.surfaceVariant,
         shape = MaterialTheme.shapes.medium,
-        modifier = modifier
+        modifier = modifier.
+        clickable { onNavigate(info.id) }
     ) {
         Row {
             GlideImagePreview(
@@ -85,7 +91,7 @@ fun ItemList(
                     color = MaterialTheme.colorScheme.secondary,
                     modifier = Modifier.padding(top = 4.dp)
                 )
-                Text(text = info.location?.name!!, style = MaterialTheme.typography.titleMedium)
+                Text(text = info.location.name, style = MaterialTheme.typography.titleMedium)
             }
         }
     }

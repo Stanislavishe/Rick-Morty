@@ -21,5 +21,5 @@ interface RMApi {
     @GET("episode/{id}")
     suspend fun singleEpisode(
         @Path("id") id: String
-    ) : List<Episode>
+    ) : Episode
 }

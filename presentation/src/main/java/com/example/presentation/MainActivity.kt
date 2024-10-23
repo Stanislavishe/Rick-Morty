@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.presentation.theme.RickAndMortyTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,5 +39,15 @@ fun MyApp(modifier: Modifier = Modifier) {
             )
         }
     }
-
 }
+
+fun <T: Any> NavHostController.navigateSingleTopTo(route: T) =
+    this.navigate(route) {
+        launchSingleTop = true
+        popUpTo(
+            this@navigateSingleTopTo.graph.findStartDestination().id
+        ) {
+            saveState = true
+        }
+        restoreState = true
+    }

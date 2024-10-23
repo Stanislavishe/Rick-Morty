@@ -9,5 +9,5 @@ interface RMRepository {
 
     suspend fun getSinglePerson(id: Int) : LoadCharacterResult
 
-    suspend fun getSingleEpisode(id: String): LoadCharacterResult
+//    suspend fun getSingleEpisode(id: String): LoadCharacterResult
 }

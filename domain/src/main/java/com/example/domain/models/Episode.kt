@@ -8,5 +8,6 @@ data class Episode(
     val id: Int,
     val name: String,
     @Json(name = "air_date") val airDate: String,
-    val episode: String
+    val episode: String,
+    val characters: List<String>
 )

@@ -6,15 +6,15 @@ import com.example.domain.models.Episode
 import javax.inject.Inject
 
 class CharacterUIMapper @Inject constructor(): LoadCharacterResult.Mapper<CharacterUIState> {
-    override fun mapSingleSuccess(character: Character): CharacterUIState {
-        return CharacterUIState.SuccessLoadCharacter(character)
+    override fun mapSingleSuccess(character: Character, episodes: List<Episode>): CharacterUIState {
+        return CharacterUIState.SuccessLoadCharacter(character, episodes)
     }
 
     override fun mapError(error: String): CharacterUIState {
         return CharacterUIState.Error(error)
     }
 
-    override fun mapSingleEpisode(episodes: List<Episode>): CharacterUIState {
-        return CharacterUIState.SuccessLoadEpisode(episodes)
-    }
+//    override fun mapSingleEpisode(episodes: List<Episode>): CharacterUIState {
+//        return CharacterUIState.SuccessLoadEpisode(episodes)
+//    }
 }
