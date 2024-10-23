@@ -26,7 +26,8 @@ import com.example.presentation.R
 fun CharacterList(
     modifier: Modifier = Modifier,
     characters: List<Character>,
-    onNavigate: (Int) -> Unit
+    onNavigate: (Int) -> Unit,
+
 ) {
     LazyColumn(
         modifier = modifier

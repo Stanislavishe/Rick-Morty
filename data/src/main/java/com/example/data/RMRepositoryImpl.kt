@@ -38,13 +38,24 @@ class RMRepositoryImpl @Inject constructor(
         }
     }
 
-//    override suspend fun getSingleEpisode(ids: String): LoadCharacterResult {
-//        return try {
-//            val episode = api.singleEpisode(ids)
-//            LoadCharacterResult.SuccessSingleEpisode(episode)
-//        } catch (e: Exception) {
-//            LoadCharacterResult.Error(e.message ?: "")
-//        }
-//    }
+    override suspend fun getSingleEpisode(id: String): LoadCharacterResult {
+        return try {
+            val episode = api.singleEpisode(id)
+            val characters = mutableListOf<Character>()
+
+            episode.characters.forEach {
+                var personId = ""
+                it.toCharArray().forEach { char ->
+                    if(regex.matches(char.toString())) personId += char
+                }
+                val person = api.singlePerson(personId)
+                characters.add(person)
+            }
+
+            LoadCharacterResult.SuccessSingleEpisode(episode, characters)
+        } catch (e: Exception) {
+            LoadCharacterResult.Error(e.message ?: "")
+        }
+    }
 
 }

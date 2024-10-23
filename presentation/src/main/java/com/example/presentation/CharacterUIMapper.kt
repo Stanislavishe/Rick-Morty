@@ -14,7 +14,7 @@ class CharacterUIMapper @Inject constructor(): LoadCharacterResult.Mapper<Charac
         return CharacterUIState.Error(error)
     }
 
-//    override fun mapSingleEpisode(episodes: List<Episode>): CharacterUIState {
-//        return CharacterUIState.SuccessLoadEpisode(episodes)
-//    }
+    override fun mapSingleEpisode(episode: Episode, persons: List<Character>): CharacterUIState {
+        return CharacterUIState.SuccessLoadEpisode(episode, persons)
+    }
 }

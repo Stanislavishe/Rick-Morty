@@ -8,7 +8,8 @@ interface CharacterUIState {
     data class SuccessLoadCharacter(val character: Character, val episodes: List<Episode>) :
         CharacterUIState
 
-//    data class SuccessLoadEpisode(val episodes: List<Episode>) : CharacterUIState
+    data class SuccessLoadEpisode(val episode: Episode, val persons: List<Character>) :
+        CharacterUIState
 
     data class Error(private val error: String) : CharacterUIState
 

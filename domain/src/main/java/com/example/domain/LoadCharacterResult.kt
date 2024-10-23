@@ -10,7 +10,7 @@ interface LoadCharacterResult {
     interface Mapper<T : Any> {
         fun mapSingleSuccess(character: Character, episodes: List<Episode>): T
 
-//        fun mapSingleEpisode(episodes: List<Episode>): T
+        fun mapSingleEpisode(episode: Episode, persons: List<Character>): T
 
         fun mapError(error: String): T
     }
@@ -24,11 +24,14 @@ interface LoadCharacterResult {
         }
     }
 
-//    data class SuccessSingleEpisode(private val episodes: List<Episode>) : LoadCharacterResult {
-//        override fun <T : Any> map(mapper: Mapper<T>): T {
-//            return mapper.mapSingleEpisode(episodes)
-//        }
-//    }
+    data class SuccessSingleEpisode(
+        private val episode: Episode,
+        private val persons: List<Character>
+    ) : LoadCharacterResult {
+        override fun <T : Any> map(mapper: Mapper<T>): T {
+            return mapper.mapSingleEpisode(episode, persons)
+        }
+    }
 
     data class Error(private val error: String) : LoadCharacterResult {
         override fun <T : Any> map(mapper: Mapper<T>): T {

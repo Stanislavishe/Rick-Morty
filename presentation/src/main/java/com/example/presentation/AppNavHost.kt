@@ -11,7 +11,9 @@ import androidx.navigation.toRoute
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.presentation.fragments.CharacterList
 import com.example.presentation.fragments.ItemCharacter
+import com.example.presentation.fragments.ItemEpisodeFullscreen
 import com.example.presentation.view_models.CharacterListViewModel
+import com.example.presentation.view_models.EpisodeViewModel
 import com.example.presentation.view_models.SingleCharacterViewModel
 import kotlinx.serialization.Serializable
 
@@ -30,7 +32,8 @@ fun AppNavHost(
     modifier: Modifier = Modifier,
     navHostController: NavHostController,
     characterListViewModel: CharacterListViewModel = viewModel(),
-    singleCharacterViewModel: SingleCharacterViewModel = viewModel()
+    singleCharacterViewModel: SingleCharacterViewModel = viewModel(),
+    episodeViewModel: EpisodeViewModel = viewModel()
 ) {
     NavHost(
         navController = navHostController,
@@ -54,7 +57,10 @@ fun AppNavHost(
             }
         }
         composable<EpisodeScreen> {
-
+            val id = it.toRoute<EpisodeScreen>().id
+            ItemEpisodeFullscreen(id = id, episodeViewModel = episodeViewModel) { idPerson ->
+                navHostController.navigateSingleTopTo(route = PersonScreen(idPerson))
+            }
         }
     }
 
